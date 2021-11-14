@@ -1,0 +1,23 @@
+{
+  "name": "crude-node",
+  "version": "1.0.0",
+  "description": "Introduccion a nodejs",
+  "main": "servidor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcarogamez/MascotaFelizG3.git"
+  },
+  "author": "Equipo Raptor MINITIC 2021",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcarogamez/MascotaFelizG3/issues"
+  },
+  "homepage": "https://github.com/dcarogamez/MascotaFelizG3#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
+}
