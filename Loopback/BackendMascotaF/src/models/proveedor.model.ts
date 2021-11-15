@@ -1,10 +1,11 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
 import {Registro} from './registro.model';
-import {Pedido} from './pedido.model';
-import {Mascota} from './mascota.model';
+import {ConsultaServ} from './consulta-serv.model';
+import {ProductoServicio} from './producto-servicio.model';
+import {DetallePedido} from './detalle-pedido.model';
 
 @model()
-export class Cliente extends Entity {
+export class Proveedor extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -16,19 +17,30 @@ export class Cliente extends Entity {
     type: 'string',
     required: true,
   })
-  mascotaId: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
   nombre: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  apellido: string;
+  consultaServId: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  contacto: string;
+
+  @property({
+    type: 'string',
+  })
+  telefono1?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  telefono2: string;
 
   @property({
     type: 'string',
@@ -46,30 +58,6 @@ export class Cliente extends Entity {
     type: 'string',
     required: true,
   })
-  sexo: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  correo: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  telefono1: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  telefono2: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
   ubicacion: string;
 
   @property({
@@ -80,19 +68,19 @@ export class Cliente extends Entity {
   @hasOne(() => Registro)
   registro: Registro;
 
-  @hasMany(() => Pedido)
-  pedidos: Pedido[];
+  @hasMany(() => ConsultaServ)
+  consultaServs: ConsultaServ[];
 
-  @hasMany(() => Mascota)
-  mascotas: Mascota[];
+  @hasMany(() => ProductoServicio, {through: {model: () => DetallePedido}})
+  productoServicios: ProductoServicio[];
 
-  constructor(data?: Partial<Cliente>) {
+  constructor(data?: Partial<Proveedor>) {
     super(data);
   }
 }
 
-export interface ClienteRelations {
+export interface ProveedorRelations {
   // describe navigational properties here
 }
 
-export type ClienteWithRelations = Cliente & ClienteRelations;
+export type ProveedorWithRelations = Proveedor & ProveedorRelations;

@@ -1,10 +1,9 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
 import {Registro} from './registro.model';
-import {Pedido} from './pedido.model';
-import {Mascota} from './mascota.model';
+import {ConsultaServ} from './consulta-serv.model';
 
 @model()
-export class Cliente extends Entity {
+export class Mascota extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -16,7 +15,7 @@ export class Cliente extends Entity {
     type: 'string',
     required: true,
   })
-  mascotaId: string;
+  planId: string;
 
   @property({
     type: 'string',
@@ -28,19 +27,19 @@ export class Cliente extends Entity {
     type: 'string',
     required: true,
   })
-  apellido: string;
+  especie: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  direccion: string;
+  raza: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  ciudad: string;
+  color: string;
 
   @property({
     type: 'string',
@@ -49,28 +48,52 @@ export class Cliente extends Entity {
   sexo: string;
 
   @property({
-    type: 'string',
+    type: 'date',
     required: true,
   })
-  correo: string;
+  fechaNaci: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  telefono1: string;
+  senales: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  telefono2: string;
+  alimento: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  peso: number;
 
   @property({
     type: 'string',
     required: true,
   })
-  ubicacion: string;
+  enfermedadesPrex: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  foto: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  status: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  motivoStatus: string;
 
   @property({
     type: 'string',
@@ -80,19 +103,21 @@ export class Cliente extends Entity {
   @hasOne(() => Registro)
   registro: Registro;
 
-  @hasMany(() => Pedido)
-  pedidos: Pedido[];
+  @property({
+    type: 'string',
+  })
+  clienteId?: string;
 
-  @hasMany(() => Mascota)
-  mascotas: Mascota[];
+  @hasMany(() => ConsultaServ)
+  consultaServs: ConsultaServ[];
 
-  constructor(data?: Partial<Cliente>) {
+  constructor(data?: Partial<Mascota>) {
     super(data);
   }
 }
 
-export interface ClienteRelations {
+export interface MascotaRelations {
   // describe navigational properties here
 }
 
-export type ClienteWithRelations = Cliente & ClienteRelations;
+export type MascotaWithRelations = Mascota & MascotaRelations;

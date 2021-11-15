@@ -7,8 +7,8 @@ const config = {
   url: 'mongodb+srv://<username>:0nixlind0@cluster0.mdkfr.mongodb.net/MascotaFelizBD?retryWrites=true&w=majority',
   host: '',
   port: 0,
-  user: '',
-  password: '',
+  user: 'diana',
+  password: '0nixlind0',
   database: '',
   useNewUrlParser: true
 };

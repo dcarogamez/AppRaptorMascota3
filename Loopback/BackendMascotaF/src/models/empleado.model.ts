@@ -1,22 +1,16 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
 import {Registro} from './registro.model';
 import {Pedido} from './pedido.model';
-import {Mascota} from './mascota.model';
+import {DetallePedido} from './detalle-pedido.model';
 
 @model()
-export class Cliente extends Entity {
+export class Empleado extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
   id?: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  mascotaId: string;
 
   @property({
     type: 'string',
@@ -34,43 +28,43 @@ export class Cliente extends Entity {
     type: 'string',
     required: true,
   })
-  direccion: string;
+  documentoId: string;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  fechaInicio: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  ciudad: string;
+  cargo: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  sexo: string;
+  departamento: string;
+
+  @property({
+    type: 'boolean',
+    required: true,
+  })
+  comision: boolean;
 
   @property({
     type: 'string',
     required: true,
   })
-  correo: string;
+  nivel: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  telefono1: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  telefono2: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  ubicacion: string;
+  pedidoId: string;
 
   @property({
     type: 'string',
@@ -80,19 +74,16 @@ export class Cliente extends Entity {
   @hasOne(() => Registro)
   registro: Registro;
 
-  @hasMany(() => Pedido)
+  @hasMany(() => Pedido, {through: {model: () => DetallePedido}})
   pedidos: Pedido[];
 
-  @hasMany(() => Mascota)
-  mascotas: Mascota[];
-
-  constructor(data?: Partial<Cliente>) {
+  constructor(data?: Partial<Empleado>) {
     super(data);
   }
 }
 
-export interface ClienteRelations {
+export interface EmpleadoRelations {
   // describe navigational properties here
 }
 
-export type ClienteWithRelations = Cliente & ClienteRelations;
+export type EmpleadoWithRelations = Empleado & EmpleadoRelations;
