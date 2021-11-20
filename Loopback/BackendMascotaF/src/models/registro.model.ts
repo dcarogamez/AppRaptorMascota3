@@ -17,6 +17,13 @@ export class Registro extends Entity {
     type: 'string',
     required: true,
   })
+  clave: string;
+  
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   mascotaId: string;
 
   @property({

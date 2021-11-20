@@ -74,6 +74,12 @@ export class Cliente extends Entity {
 
   @property({
     type: 'string',
+    required: false,
+  })
+  clave: string;
+
+  @property({
+    type: 'string',
   })
   registroId?: string;
 
