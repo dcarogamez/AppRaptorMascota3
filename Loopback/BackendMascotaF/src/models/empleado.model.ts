@@ -1,5 +1,4 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
-import {Registro} from './registro.model';
 import {Pedido} from './pedido.model';
 import {DetallePedido} from './detalle-pedido.model';
 
@@ -11,7 +10,7 @@ export class Empleado extends Entity {
     generated: true,
   })
   id?: string;
-
+  
   @property({
     type: 'string',
     required: true,

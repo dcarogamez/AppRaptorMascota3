@@ -6,7 +6,6 @@ import { UserProfile } from "@loopback/security";
 import parseBearerToken from "parse-bearer-token";
 import { AutenticacionService } from "../services";
 
-/*
 export class EstrategiaAdministrador implements AuthenticationStrategy{
     name: string= 'admin';
 
@@ -38,4 +37,4 @@ export class EstrategiaAdministrador implements AuthenticationStrategy{
         }
         
     }
-    */
+    

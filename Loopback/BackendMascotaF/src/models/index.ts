@@ -1,5 +1,4 @@
 export * from './cliente.model';
-export * from './registro.model';
 export * from './plan.model';
 export * from './empleado.model';
 export * from './pedido.model';
@@ -9,3 +8,4 @@ export * from './proveedor.model';
 export * from './consulta-serv.model';
 export * from './producto-servicio.model';
 export * from './detalle-pedido.model';
+export * from './registro.model';

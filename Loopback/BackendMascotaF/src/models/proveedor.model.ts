@@ -1,5 +1,4 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
-import {Registro} from './registro.model';
 import {ConsultaServ} from './consulta-serv.model';
 import {ProductoServicio} from './producto-servicio.model';
 import {DetallePedido} from './detalle-pedido.model';
@@ -12,6 +11,12 @@ export class Proveedor extends Entity {
     generated: true,
   })
   id?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  clave: string;
 
   @property({
     type: 'string',
@@ -65,10 +70,7 @@ export class Proveedor extends Entity {
   })
   registroId?: string;
 
-  @hasOne(() => Registro)
-  registro: Registro;
-
-  @hasMany(() => ConsultaServ)
+   @hasMany(() => ConsultaServ)
   consultaServs: ConsultaServ[];
 
   @hasMany(() => ProductoServicio, {through: {model: () => DetallePedido}})

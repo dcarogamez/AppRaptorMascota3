@@ -8,4 +8,4 @@ export * from './pedido.repository';
 export * from './plan.repository';
 export * from './producto-servicio.repository';
 export * from './proveedor.repository';
-export * from './registro.repository';
+

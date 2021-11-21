@@ -1,5 +1,4 @@
 import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
-import {Registro} from './registro.model';
 import {ConsultaServ} from './consulta-serv.model';
 
 @model()
@@ -99,9 +98,6 @@ export class Mascota extends Entity {
     type: 'string',
   })
   registroId?: string;
-
-  @hasOne(() => Registro)
-  registro: Registro;
 
   @property({
     type: 'string',
