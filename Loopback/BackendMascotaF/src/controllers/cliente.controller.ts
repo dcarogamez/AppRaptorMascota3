@@ -1,3 +1,4 @@
+import { service } from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -16,15 +17,49 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors,
 } from '@loopback/rest';
-import {Cliente} from '../models';
+import {Registro, Cliente} from '../models';
 import {ClienteRepository} from '../repositories';
+import { AutenticacionService } from '../services';
+const fetch = require("node-fetch");
 
 export class ClienteController {
   constructor(
     @repository(ClienteRepository)
     public clienteRepository : ClienteRepository,
-  ) {}
+    @service(AutenticacionService)
+    public servicioAutenticacion: AutenticacionService
+    ) {}
+
+    @post ("/identificarCliente", {
+     responses:{
+     '200':{
+       description:"Identificacion de usuarios"
+        }
+      }
+    })
+    async identificarCliente(
+      @requestBody()  Registro: Registro
+      ){
+        let c = await this.servicioAutenticacion.IdentificarCliente(Registro.usuario, Registro.clave);
+        if(c){
+          let token = this.servicioAutenticacion.GenerarTokenJWT(c);
+          return {
+            datos:{
+              nombre: c.nombre,
+              correo: c.correo,
+              id: c.id
+            },
+    
+            tk:token
+          }
+          } else{
+            throw new HttpErrors[401]("Datos invalidos");
+          }
+    
+      }
+   
 
   @post('/clientes')
   @response(200, {
@@ -44,8 +79,22 @@ export class ClienteController {
     })
     cliente: Omit<Cliente, 'id'>,
   ): Promise<Cliente> {
-    return this.clienteRepository.create(cliente);
+    let clave =this.servicioAutenticacion.GenerarClave();
+    let claveCifrada = this.servicioAutenticacion.CifrarClave(clave);
+    cliente.clave = claveCifrada;
+    let c = await this.clienteRepository.create(cliente);
+
+    // Notificar al usuario
+    let destino = cliente.correo;
+    let asunto = 'Registro en la plataforma';
+    let contenido =`Hola ${cliente.nombre}, su usuario es ${cliente.correo}y su contraseña es ${clave}`;
+    fetch(`http://127.0.0.1:5000/envio-correo?correo_destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    .then((data:any)=>{
+      console.log(data);
+    })
+    return c;
   }
+   
 
   @get('/clientes/count')
   @response(200, {
