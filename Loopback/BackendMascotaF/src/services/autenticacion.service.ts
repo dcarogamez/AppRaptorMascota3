@@ -4,6 +4,9 @@ const cryptoJS = require ("crypto-js");
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class AutenticacionService {
+  ValidarTokenJWT(token: string) {
+      throw new Error("Method not implemented.");
+  }
   constructor(/* Add @inject to inject parameters */) {}
 
   /*

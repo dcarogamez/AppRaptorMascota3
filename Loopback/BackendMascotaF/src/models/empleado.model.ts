@@ -16,6 +16,12 @@ export class Empleado extends Entity {
     type: 'string',
     required: true,
   })
+  clave: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   nombre: string;
 
   @property({
@@ -68,11 +74,10 @@ export class Empleado extends Entity {
 
   @property({
     type: 'string',
+    required: true,
   })
-  registroId?: string;
+  correo: string;
 
-  @hasOne(() => Registro)
-  registro: Registro;
 
   @hasMany(() => Pedido, {through: {model: () => DetallePedido}})
   pedidos: Pedido[];
