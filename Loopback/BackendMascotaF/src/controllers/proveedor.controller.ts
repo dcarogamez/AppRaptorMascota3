@@ -19,11 +19,15 @@ import {
 } from '@loopback/rest';
 import {Proveedor} from '../models';
 import {ProveedorRepository} from '../repositories';
+import { AutenticacionService } from '../services';
+const fetch = require("node-fetch");
 
 export class ProveedorController {
   constructor(
     @repository(ProveedorRepository)
     public proveedorRepository : ProveedorRepository,
+    @service(AutenticacionService)
+    public servicioAutenticacion: AutenticacionService 
   ) {}
 
   @post('/proveedors')
@@ -44,7 +48,19 @@ export class ProveedorController {
     })
     proveedor: Omit<Proveedor, 'id'>,
   ): Promise<Proveedor> {
-    return this.proveedorRepository.create(proveedor);
+    //return this.proveedorRepository.create(proveedor);
+    let clave = this.servicioAutenticacion.GenerarClave();
+    let claveCifrada = this.servicioAutenticacion.CifrarClave(clave);
+    proveedor.clave = claveCifrada;
+    let p = await this.proveedorRepository.create(proveedor);
+
+    // Notificar al usuario
+    let destino = proveedor.correo;
+    let asunto = 'Registro en la plataforma';
+    let contenido = `Hola ${proveedor.nombre}, su usuario es ${proveedor.correo} y su contraseña es ${clave}`;
+    fetch(`http://127.0.0.0:5000/envio-correo?correo_destino=${destino}&asunto`)
+
+
   }
 
   @get('/proveedors/count')
