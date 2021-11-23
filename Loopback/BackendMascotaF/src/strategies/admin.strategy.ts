@@ -6,6 +6,8 @@ import { UserProfile } from "@loopback/security";
 import parseBearerToken from "parse-bearer-token";
 import { AutenticacionService } from "../services";
 
+// Codigo para implementar la estrategia de un usuario
+
 export class EstrategiaAdministrador implements AuthenticationStrategy{
     name: string= 'admin';
 

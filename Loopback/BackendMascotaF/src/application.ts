@@ -44,7 +44,7 @@ export class App extends BootMixin(
     };
 
     registerAuthenticationStrategy(this, EstrategiaAdministrador);
-    //Aqui se agregan las luneas para cada estrategia
+    //Aqui se agregan las estrategias que codifique 
     this.component(AuthenticationComponent);
   }
 }

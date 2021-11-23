@@ -20,6 +20,8 @@ export class AutenticacionService {
    * Add service methods here
    */
 
+  // Codigo para Generar y Cifrar las Claves
+
   GenerarClave(){
     let clave = generador(8, false);
     return clave;
@@ -30,6 +32,8 @@ export class AutenticacionService {
     return claveCifrada;
       
   }
+
+  // Proceso para realizar la autenticacion e identificacion de usuarios en el sistema
 
   IdentificarCliente(usuario: string, clave: string){
   try{
@@ -44,11 +48,11 @@ export class AutenticacionService {
   }
 
   GenerarTokenJWT(cliente: Cliente){
-    let token = jwt.sing({
+    let token = jwt.sign({
       data:{
         id: cliente.id,
         correo: cliente.correo,
-        nombre: cliente.nombre + " " +cliente.apellido}
+        nombre: cliente.nombre + " " + cliente.apellido}
       
       },
       

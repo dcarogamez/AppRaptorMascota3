@@ -19,6 +19,7 @@ import {
   response,
   HttpErrors,
 } from '@loopback/rest';
+import { Llaves } from '../config/llaves';
 import {Registro, Cliente} from '../models';
 import {ClienteRepository} from '../repositories';
 import { AutenticacionService } from '../services';
@@ -32,6 +33,8 @@ export class ClienteController {
     public servicioAutenticacion: AutenticacionService
     ) {}
 
+    // Construccion de la verificacion del metodo para idientificar y validar usuarios
+
     @post ("/identificarCliente", {
      responses:{
      '200':{
@@ -40,9 +43,9 @@ export class ClienteController {
       }
     })
     async identificarCliente(
-      @requestBody()  Registro: Registro
+      @requestBody()  registro: Registro
       ){
-        let c = await this.servicioAutenticacion.IdentificarCliente(Registro.usuario, Registro.clave);
+        let c = await this.servicioAutenticacion.IdentificarCliente(registro.usuario, registro.clave);
         if(c){
           let token = this.servicioAutenticacion.GenerarTokenJWT(c);
           return {
@@ -60,6 +63,7 @@ export class ClienteController {
     
       }
    
+ 
 
   @post('/clientes')
   @response(200, {
@@ -78,6 +82,9 @@ export class ClienteController {
       },
     })
     cliente: Omit<Cliente, 'id'>,
+
+     // Codigo para la creacion de Notificaciones y modificar la respuesta y crear una contraseña cifrada
+
   ): Promise<Cliente> {
     let clave =this.servicioAutenticacion.GenerarClave();
     let claveCifrada = this.servicioAutenticacion.CifrarClave(clave);
@@ -88,7 +95,7 @@ export class ClienteController {
     let destino = cliente.correo;
     let asunto = 'Registro en la plataforma';
     let contenido =`Hola ${cliente.nombre}, su usuario es ${cliente.correo}y su contraseña es ${clave}`;
-    fetch(`http://127.0.0.1:5000/envio-correo?correo_destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    fetch(`${Llaves.urlServicioNotificaciones}/envio-correo?correo_destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
     .then((data:any)=>{
       console.log(data);
     })

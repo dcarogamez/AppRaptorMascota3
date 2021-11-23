@@ -27,8 +27,7 @@ export class PedidoController {
     public pedidoRepository : PedidoRepository,
   ) {}
 
-  @authenticate("admin")
-  
+  @authenticate("admin")  
   @post('/pedidos')
   @response(200, {
     description: 'Pedido model instance',

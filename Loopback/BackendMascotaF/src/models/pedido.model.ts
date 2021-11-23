@@ -19,19 +19,19 @@ export class Pedido extends Entity {
   
   @property({
     type: 'date',
-    required: true,
+    required: false,
   })
   fechaPedido: string;
 
   @property({
     type: 'date',
-    required: true,
+    required: false,
   })
   fechaEntrega: string;
 
   @property({
     type: 'string',
-    required: true,
+    required: true
   })
   formaPago: string;
 
@@ -58,6 +58,8 @@ export class Pedido extends Entity {
 
 export interface PedidoRelations {
   // describe navigational properties here
+
+  
 }
 
 export type PedidoWithRelations = Pedido & PedidoRelations;
