@@ -1,0 +1,35 @@
+body{
+    background-color:gray;
+}
+
+input {
+    border: 2px double red;
+    text-align: center;
+    color:red;
+}
+#miDivsion{
+    border:4px solid blue;
+    height: 100px;
+    width: 80%;
+
+}
+#miImagen{
+    width: 50%;
+    height: auto;
+    border:2px solid red;
+}
+
+.fondoAzul{
+    background-color: blue;
+    }
+
+.bordeBlanco{
+    border:5px double white !important;
+    border-radius:10;
+}
+
+
+input [type=button]:hover{
+    background-color:yellow;
+    cursor:pointer;
+}
